@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'google_drive'
+require 'json'
+require_relative '../lib/trackup.rb'
+
+#Bundler.require
+session = GoogleDrive::Session.from_service_account_key("var/client_secret.json")
+sheet = session.spreadsheet_by_title("Wedding Admin").worksheets[14]
+(1..sheet.rows.count).to_a.each do |row|
+  next if sheet[row, 1] == 'Song'
+  song = sheet[row, 1]
+  artist = sheet[row, 4]
+  song_lookup = Trackup.new(artist, song)
+  next if song_lookup == nil
+  sheet[row, 9] = song_lookup.duration
+  puts("[TRACKUP][LOG] --- #{artist} - #{song} = #{song_lookup.duration}") unless song_lookup.duration == ''
+  sheet.save
+end
+puts('[TRACKUP][LOG] --- Finished!')
