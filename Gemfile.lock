@@ -54,7 +54,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
     os (1.0.1)
@@ -83,6 +83,7 @@ DEPENDENCIES
   json
   mechanize
   nokogiri
+  unf_ext
 
 BUNDLED WITH
    2.0.2
